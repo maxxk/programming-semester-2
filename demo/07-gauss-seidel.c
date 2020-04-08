@@ -4,6 +4,8 @@
 #include <string.h>
 
 #define EPS 1e-16
+#define MAX_ITERATIONS 1000000
+#define E 1e-4
 
 typedef double (*matrix_formula)(int size, int row, int col);
 
@@ -19,9 +21,10 @@ void print_vector(int size, double *vector);
 
 int lower_triangular_gausian(int size, double *matrix, double *vector);
 void matrix_upper_triangle_multiply(int size, double *matrix, double *vector);
-void matrix_multiply(int size, double *matrix, double *vector);
-void vector_sub(int size, double *left_source, double *right_dest);
+void matrix_multiply(int size, double *matrix, double *input, double *output);
 int gauss_seidel(int size, double *matrix, double *rhs, double *x);
+void vector_sub(int size, double *left_source, double *right_dest);
+double vector_norm(int size, double *vector);
 
 double matrix_element(int size, const double *matrix, int row, int col) {
     return matrix[row * size + col];
@@ -60,9 +63,19 @@ void vector_sub(int size, double *left_source, double *right_dest) {
     }
 }
 
+double vector_norm(int size, double *vector) {
+    double norm = 0.;
+    for (int i = 0; i < size; i++) {
+        norm += fabs(vector[i]);
+    }
+    return norm;
+}
+
 int gauss_seidel(int size, double *matrix, double *rhs, double *x) {
     int status;
+    int iterations = 0;
     double *residual;
+    double norm = 1.;
 
     residual = (double*)malloc(size*sizeof(double));
     
@@ -71,15 +84,23 @@ int gauss_seidel(int size, double *matrix, double *rhs, double *x) {
         return status;
     }
 
-    while (1) {
+    while (iterations < MAX_ITERATIONS && norm > E) {
         matrix_upper_triangle_multiply(size, matrix, x);
         vector_sub(size, rhs, x);
         if ((status = lower_triangular_gausian(size, matrix, x))) {
             return status;
         }
-        print_vector(size, x);
+        
+        // print_vector(size, x);
+        matrix_multiply(size, matrix, x, residual);
+        vector_sub(size, rhs, residual);
+        norm = vector_norm(size, residual);
+        printf("%e\n", norm);
+        iterations += 1;
         //getc(stdin);
     }
+    printf("%d\n", iterations);
+    return 0;
 }
 
 void matrix_upper_triangle_multiply(int size, double *matrix, double *vector) {
@@ -90,6 +111,18 @@ void matrix_upper_triangle_multiply(int size, double *matrix, double *vector) {
             value += matrix_element(size, matrix, row, col) * vector[col];
         }
         vector[row] = value;
+    }
+}
+
+void matrix_multiply(int size, double *matrix, double *input, double *output) {
+    double value;
+
+    for (int row = 0; row < size; row++) {
+        value = 0.;
+        for (int col = 0; col < size; col++) {
+            value += matrix_element(size, matrix, row, col) * input[col];
+        }
+        output[row] = value;
     }
 }
 
