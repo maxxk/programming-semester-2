@@ -9,6 +9,15 @@
 
 typedef double (*matrix_formula)(int size, int row, int col);
 
+double formula(int size, int row, int col) {
+    (void)size;
+    return fabs(row - col);
+}
+
+double random(int size, int row, int col) {
+    return ((double)rand()) / RAND_MAX; // [0..1]
+}
+
 double hilbert_element(int size, int row, int col) {
     return 1. / (row + col + 1.);
 }
