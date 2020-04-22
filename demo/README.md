@@ -82,4 +82,11 @@ F : K → K (непрерывно)
 | . | : (K → K) → R
 
 |F| < 1 
-⇒ ∃ x : F(x) = x
+
+# Строки и кодировка UTF-8
+🏴󠁧󠁢󠁳󠁣󠁴󠁿
+The Flag: Scotland emoji is a sequence of the 🏴 Waving Black Flag, 󠁧 Tag Latin Small Letter G, 󠁢 Tag Latin Small Letter B, 󠁳 Tag Latin Small Letter S, 󠁣 Tag Latin Small Letter C, 󠁴 Tag Latin Small Letter T and 󠁿 Cancel Tag emojis. These display as a single emoji on supported platforms.
+
+🇷🇺
+
+🇷 🇺

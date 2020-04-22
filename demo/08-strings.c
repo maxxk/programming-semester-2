@@ -4,7 +4,7 @@
 
 int main(void) {
     int arr1[5] = { 1, 2, 3, 4, 5 };
-    char *c1 = "12345678"; // \0
+    char *c1 = "1Ы345678"; // \0 c1[0] == '1', c1[1] == 0xd0, c1[2]
     char *c2 = "ABCDEFGH"; // ASCII
     char *test = malloc(32);
     char *test2 = test;
@@ -45,8 +45,9 @@ int main(void) {
     printf("String: %s\n", test);
     printf("Test2: %s\n", test2);
     for (int i = 0; i < 32; i++) {
-        printf("%x ", test[i]);
+        printf("%x ", test[i]); // вывести беззнаковое целое (unsigned int) base-16
     }
+
 
     return 0;
 }
