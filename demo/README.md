@@ -90,3 +90,13 @@ The Flag: Scotland emoji is a sequence of the 🏴 Waving Black Flag, 󠁧 Tag L
 🇷🇺
 
 🇷 🇺
+
+# Поряок байт
+порядок байт в целых числах
+little endian (сначала младшие байты)
+0x00123456 ⇒ 0x56 0x34 0x12 0x00
+big endian (network endian) (сначала старшие байты)
+0x00123456 ⇒ 0x00 0x12 0x34 0x56
+
+0x42b ⇒ 0x2b 0x04 или 0x04 0x2b
+UTF-8 исключает проблемы с порядком байт
