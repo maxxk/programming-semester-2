@@ -1,0 +1,6 @@
+#if A
+QWE
+#else
+ASD
+#endif
+
